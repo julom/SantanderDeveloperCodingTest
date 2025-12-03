@@ -1,4 +1,4 @@
-﻿using SantanderDeveloperCodingTest.DTO;
+﻿using SantanderDeveloperCodingTest.Dtos;
 
 namespace SantanderDeveloperCodingTest.Test.TestHelpers
 {

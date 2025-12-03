@@ -1,4 +1,4 @@
-﻿namespace SantanderDeveloperCodingTest.DTO
+﻿namespace SantanderDeveloperCodingTest.Dtos
 {
     public record StoryDto(
         int Id,

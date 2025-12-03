@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Moq;
 using NUnit.Framework.Legacy;
-using SantanderDeveloperCodingTest.DTO;
+using SantanderDeveloperCodingTest.Dtos;
+using SantanderDeveloperCodingTest.Endpoints;
 using SantanderDeveloperCodingTest.Services;
 using SantanderDeveloperCodingTest.Test.TestHelpers;
 
-namespace SantanderDeveloperCodingTest.Test
+namespace SantanderDeveloperCodingTest.Test.UnitTests
 {
     public class EndpointHandlersTests
     {
@@ -24,7 +25,7 @@ namespace SantanderDeveloperCodingTest.Test
             var result = await EndpointHandlers.GetBestStories(0, _storyServiceMock.Object);
 
             // Assert
-            ClassicAssert.IsInstanceOf<BadRequest<string>>(result, "Expected a BadRequest when count < 1.");
+            ClassicAssert.IsInstanceOf<ProblemHttpResult>(result, "Expected a BadRequest when count < 1.");
             _storyServiceMock.VerifyNoOtherCalls();
         }
 

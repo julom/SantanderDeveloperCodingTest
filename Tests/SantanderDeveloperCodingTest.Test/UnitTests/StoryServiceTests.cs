@@ -5,7 +5,7 @@ using NUnit.Framework.Legacy;
 using SantanderDeveloperCodingTest.Services;
 using SantanderDeveloperCodingTest.Test.TestHelpers;
 
-namespace SantanderDeveloperCodingTest.Test
+namespace SantanderDeveloperCodingTest.Test.UnitTests
 {
     public class StoryServiceTests
     {

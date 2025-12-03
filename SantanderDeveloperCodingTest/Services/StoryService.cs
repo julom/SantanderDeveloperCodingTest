@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using SantanderDeveloperCodingTest.DTO;
+using SantanderDeveloperCodingTest.Dtos;
 
 namespace SantanderDeveloperCodingTest.Services
 {

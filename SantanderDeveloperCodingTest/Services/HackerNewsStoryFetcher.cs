@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SantanderDeveloperCodingTest.DTO;
+using SantanderDeveloperCodingTest.Dtos;
 
 namespace SantanderDeveloperCodingTest.Services
 {

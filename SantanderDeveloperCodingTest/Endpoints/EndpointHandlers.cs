@@ -1,6 +1,6 @@
 ﻿using SantanderDeveloperCodingTest.Services;
 
-namespace SantanderDeveloperCodingTest
+namespace SantanderDeveloperCodingTest.Endpoints
 {
     public static class EndpointHandlers
     {
@@ -8,7 +8,11 @@ namespace SantanderDeveloperCodingTest
         {
             if (n < 1)
             {
-                return Results.BadRequest("Best stories count 'n' parameter should be bigger than 0.");
+                return Results.Problem(
+                    statusCode: StatusCodes.Status400BadRequest,
+                    title: "Invalid parameter",
+                    detail: "Best stories count 'n' parameter should be bigger than 0.",
+                    instance: "/bestStories");
             }
             var stories = await storyService.GetBestStoriesAsync(n);
             return Results.Ok(stories);

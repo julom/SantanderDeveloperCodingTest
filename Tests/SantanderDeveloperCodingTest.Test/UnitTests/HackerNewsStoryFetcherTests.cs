@@ -2,14 +2,14 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework.Legacy;
-using SantanderDeveloperCodingTest.DTO;
+using SantanderDeveloperCodingTest.Dtos;
 using SantanderDeveloperCodingTest.Services;
 using SantanderDeveloperCodingTest.Test.TestHelpers;
 using System.Net;
 using System.Text;
 using System.Text.Json;
 
-namespace SantanderDeveloperCodingTest.Test
+namespace SantanderDeveloperCodingTest.Test.UnitTests
 {
     public class HackerNewsStoryFetcherTests
     {

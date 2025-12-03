@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.RateLimiting;
 using Polly;
-using SantanderDeveloperCodingTest;
-using SantanderDeveloperCodingTest.DTO;
+using SantanderDeveloperCodingTest.Dtos;
+using SantanderDeveloperCodingTest.Endpoints;
 using SantanderDeveloperCodingTest.Services;
 using System.Threading.RateLimiting;
 
@@ -66,10 +66,11 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler();
-    app.UseStatusCodePages();
     app.UseCors();
 }
+
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 app.UseOutputCache();
 app.UseRateLimiter();
@@ -83,3 +84,5 @@ app.MapGet("/bestStories", EndpointHandlers.GetBestStories)
 .RequireRateLimiting("fixed");
 
 app.Run();
+
+public partial class Program { } //required by integration tests
