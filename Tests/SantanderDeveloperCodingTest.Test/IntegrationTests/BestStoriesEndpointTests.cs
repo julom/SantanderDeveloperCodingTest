@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using NUnit.Framework.Legacy;
 using SantanderDeveloperCodingTest.Dtos;
 using SantanderDeveloperCodingTest.Test.TestHelpers;
 using System.Net;
@@ -49,8 +48,9 @@ namespace SantanderDeveloperCodingTest.Test.IntegrationTests
             var response = await _client.GetFromJsonAsync<List<StoryResponse>>("/bestStories?n=2");
 
             // assert
-            ClassicAssert.AreEqual(2, response.Count);
-            ClassicAssert.GreaterOrEqual(response[0].Score, response[1].Score);
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Count, Is.EqualTo(2));
+            Assert.That(response[0].Score!.Value, Is.GreaterThanOrEqualTo(response[1].Score!.Value));
         }
 
         [Test]

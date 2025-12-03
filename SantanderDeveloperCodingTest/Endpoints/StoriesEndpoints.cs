@@ -2,7 +2,7 @@
 
 namespace SantanderDeveloperCodingTest.Endpoints
 {
-    public static class EndpointHandlers
+    public static class StoriesEndpoints
     {
         public static async Task<IResult> GetBestStories(int n, IStoryService storyService)
         {

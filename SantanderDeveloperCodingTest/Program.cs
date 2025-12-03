@@ -78,7 +78,7 @@ app.UseHttpsRedirection();
 
 app.UseHealthChecks("/health");
 
-app.MapGet("/bestStories", EndpointHandlers.GetBestStories)
+app.MapGet("/bestStories", StoriesEndpoints.GetBestStories)
 .WithName("GetBestStories")
 .CacheOutput()
 .RequireRateLimiting("fixed");
