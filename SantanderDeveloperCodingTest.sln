@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantanderDeveloperCodingTest", "SantanderDeveloperCodingTest\SantanderDeveloperCodingTest.csproj", "{2CA7FFA1-B1F6-450D-B479-759EBFFDF03C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantanderDeveloperCodingTest.Test", "Tests\SantanderDeveloperCodingTest.Test\SantanderDeveloperCodingTest.Test.csproj", "{A2AF4F30-87FD-4398-A312-D2FCD99C0A2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CA7FFA1-B1F6-450D-B479-759EBFFDF03C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CA7FFA1-B1F6-450D-B479-759EBFFDF03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CA7FFA1-B1F6-450D-B479-759EBFFDF03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CA7FFA1-B1F6-450D-B479-759EBFFDF03C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2AF4F30-87FD-4398-A312-D2FCD99C0A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2AF4F30-87FD-4398-A312-D2FCD99C0A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2AF4F30-87FD-4398-A312-D2FCD99C0A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2AF4F30-87FD-4398-A312-D2FCD99C0A2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A2AF4F30-87FD-4398-A312-D2FCD99C0A2E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BAB1D0E-8554-463B-AFA8-88BE2ABF3A72}
+	EndGlobalSection
+EndGlobal
