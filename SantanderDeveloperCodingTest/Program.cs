@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.OpenApi.Models;
 using Polly;
 using SantanderDeveloperCodingTest.Dtos;
 using SantanderDeveloperCodingTest.Endpoints;
@@ -11,6 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
 builder.Services.AddMemoryCache();
 builder.Services.AddHealthChecks();
 builder.Services.AddProblemDetails();
@@ -64,6 +70,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("v1/swagger.json", "My API V1");
+    });
 }
 else
 {
