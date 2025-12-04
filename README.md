@@ -24,7 +24,7 @@ A simple RESTful API built with ASP.NET Core 9 Minimal API, which returns the to
 ```bash
 git clone https://github.com/julom/SantanderDeveloperCodingTest.git
 cd SantanderDeveloperCodingTest
-dotnet run --project src/SantanderDeveloperCodingTest
+dotnet run --project src/SantanderDeveloperCodingTest --launch-profile https
 ```
 
 The API will be available at https://localhost:7273
