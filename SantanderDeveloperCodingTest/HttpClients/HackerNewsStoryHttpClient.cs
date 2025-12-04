@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using SantanderDeveloperCodingTest.Dtos;
 
-namespace SantanderDeveloperCodingTest.Services
+namespace SantanderDeveloperCodingTest.HttpClients
 {
-    public class HackerNewsStoryFetcher(
-        ILogger<HackerNewsStoryFetcher> logger,
+    public class HackerNewsStoryHttpClient(
+        ILogger<HackerNewsStoryHttpClient> logger,
         HttpClient httpClient,
-        IMapper mapper) : IHackerNewsStoryFetcher
+        IMapper mapper) : IHackerNewsStoryHttpClient
     {
-        private readonly ILogger<HackerNewsStoryFetcher> _logger = logger;
+        private readonly ILogger<HackerNewsStoryHttpClient> _logger = logger;
         private readonly HttpClient _httpClient = httpClient;
         private readonly IMapper _mapper = mapper;
 

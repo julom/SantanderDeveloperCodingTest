@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using SantanderDeveloperCodingTest.Dtos;
+using SantanderDeveloperCodingTest.HttpClients;
 
 namespace SantanderDeveloperCodingTest.Services
 {
     public class StoryService(
         ILogger<StoryService> logger,
         IMemoryCache memoryCache,
-        IHackerNewsStoryFetcher newsFetcher) : IStoryService
+        IHackerNewsStoryHttpClient newsFetcher) : IStoryService
     {
         public const string CachedStoryIdListKey = "full_list_of_story_ids";
         private const int CacheStoryIdListExpirationInSeconds = 30;
@@ -16,7 +17,7 @@ namespace SantanderDeveloperCodingTest.Services
 
         private readonly ILogger<StoryService> _logger = logger;
         private readonly IMemoryCache _memoryCache = memoryCache;
-        private readonly IHackerNewsStoryFetcher _newsFetcher = newsFetcher;
+        private readonly IHackerNewsStoryHttpClient _newsFetcher = newsFetcher;
 
         public async Task<IEnumerable<StoryResponse>> GetBestStoriesAsync(int count)
         {

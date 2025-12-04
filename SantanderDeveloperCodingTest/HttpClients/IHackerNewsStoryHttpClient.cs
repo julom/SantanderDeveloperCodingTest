@@ -1,8 +1,8 @@
 ﻿using SantanderDeveloperCodingTest.Dtos;
 
-namespace SantanderDeveloperCodingTest.Services
+namespace SantanderDeveloperCodingTest.HttpClients
 {
-    public interface IHackerNewsStoryFetcher
+    public interface IHackerNewsStoryHttpClient
     {
         Task<IEnumerable<int>> GetBestStoryIdListAsync();
         Task<StoryResponse?> GetStoryAsync(int storyId);

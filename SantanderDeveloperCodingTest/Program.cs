@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Polly;
 using SantanderDeveloperCodingTest.Dtos;
 using SantanderDeveloperCodingTest.Endpoints;
+using SantanderDeveloperCodingTest.HttpClients;
 using SantanderDeveloperCodingTest.Services;
 using System.Threading.RateLimiting;
 
@@ -13,7 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddMemoryCache();
 builder.Services.AddHealthChecks();
 builder.Services.AddProblemDetails();
-builder.Services.AddHttpClient<IHackerNewsStoryFetcher, HackerNewsStoryFetcher>(client =>
+builder.Services.AddHttpClient<IHackerNewsStoryHttpClient, HackerNewsStoryHttpClient>(client =>
 {
     client.BaseAddress = new Uri("https://hacker-news.firebaseio.com/v0/");
     client.Timeout = TimeSpan.FromSeconds(5);

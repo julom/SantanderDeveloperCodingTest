@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework.Legacy;
+using SantanderDeveloperCodingTest.HttpClients;
 using SantanderDeveloperCodingTest.Services;
 using SantanderDeveloperCodingTest.Test.TestHelpers;
 
@@ -10,14 +11,14 @@ namespace SantanderDeveloperCodingTest.Test.UnitTests
     public class StoryServiceTests
     {
         private MemoryCache _memoryCache;
-        private Mock<IHackerNewsStoryFetcher> _fetcherMock;
+        private Mock<IHackerNewsStoryHttpClient> _fetcherMock;
         private Mock<ILogger<StoryService>> _loggerMock;
 
         [SetUp]
         public void SetUp()
         {
             _memoryCache = new MemoryCache(new MemoryCacheOptions());
-            _fetcherMock = new Mock<IHackerNewsStoryFetcher>();
+            _fetcherMock = new Mock<IHackerNewsStoryHttpClient>();
             _loggerMock = new Mock<ILogger<StoryService>>();
         }
 

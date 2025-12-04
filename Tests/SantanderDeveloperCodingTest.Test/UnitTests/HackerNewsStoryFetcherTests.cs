@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework.Legacy;
 using SantanderDeveloperCodingTest.Dtos;
-using SantanderDeveloperCodingTest.Services;
+using SantanderDeveloperCodingTest.HttpClients;
 using SantanderDeveloperCodingTest.Test.TestHelpers;
 using System.Net;
 using System.Text;
@@ -15,14 +15,14 @@ namespace SantanderDeveloperCodingTest.Test.UnitTests
     {
         const string BaseAddress = "https://hacker-news.firebaseio.com/v0/";
 
-        private Mock<ILogger<HackerNewsStoryFetcher>> _loggerMock;
+        private Mock<ILogger<HackerNewsStoryHttpClient>> _loggerMock;
         private Mock<IMapper> _mapperMock;
 
         [SetUp]
         public void SetUp()
         {
             _mapperMock = new Mock<IMapper>();
-            _loggerMock = new Mock<ILogger<HackerNewsStoryFetcher>>();
+            _loggerMock = new Mock<ILogger<HackerNewsStoryHttpClient>>();
         }
 
         private HttpClient CreateHttpClient(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> responder)
@@ -54,7 +54,7 @@ namespace SantanderDeveloperCodingTest.Test.UnitTests
                 return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
             });
 
-            var fetcher = new HackerNewsStoryFetcher(_loggerMock.Object, httpClient, _mapperMock.Object);
+            var fetcher = new HackerNewsStoryHttpClient(_loggerMock.Object, httpClient, _mapperMock.Object);
 
             // Act
             var result = await fetcher.GetBestStoryIdListAsync();
@@ -80,7 +80,7 @@ namespace SantanderDeveloperCodingTest.Test.UnitTests
                 return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
             });
 
-            var fetcher = new HackerNewsStoryFetcher(_loggerMock.Object, httpClient, _mapperMock.Object);
+            var fetcher = new HackerNewsStoryHttpClient(_loggerMock.Object, httpClient, _mapperMock.Object);
 
             // Act
             var result = await fetcher.GetBestStoryIdListAsync();
@@ -98,7 +98,7 @@ namespace SantanderDeveloperCodingTest.Test.UnitTests
                 throw new HttpRequestException("Simulated network failure");
             });
 
-            var fetcher = new HackerNewsStoryFetcher(_loggerMock.Object, httpClient, _mapperMock.Object);
+            var fetcher = new HackerNewsStoryHttpClient(_loggerMock.Object, httpClient, _mapperMock.Object);
 
             // Act & Assert
             Assert.ThrowsAsync<HttpRequestException>(async () => await fetcher.GetBestStoryIdListAsync());
@@ -130,7 +130,7 @@ namespace SantanderDeveloperCodingTest.Test.UnitTests
                 .Setup(m => m.Map<StoryResponse>(It.Is<StoryDto>(d => d != null && d.Id == storyId)))
                 .Returns(expectedResponse);
 
-            var fetcher = new HackerNewsStoryFetcher(_loggerMock.Object, httpClient, _mapperMock.Object);
+            var fetcher = new HackerNewsStoryHttpClient(_loggerMock.Object, httpClient, _mapperMock.Object);
 
             // Act
             var result = await fetcher.GetStoryAsync(storyId);
@@ -151,7 +151,7 @@ namespace SantanderDeveloperCodingTest.Test.UnitTests
                 throw new HttpRequestException("Simulated fetch error");
             });
 
-            var fetcher = new HackerNewsStoryFetcher(_loggerMock.Object, httpClient, _mapperMock.Object);
+            var fetcher = new HackerNewsStoryHttpClient(_loggerMock.Object, httpClient, _mapperMock.Object);
 
             // Act
             var result = await fetcher.GetStoryAsync(storyId);
