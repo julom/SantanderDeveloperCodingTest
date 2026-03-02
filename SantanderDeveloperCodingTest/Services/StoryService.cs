@@ -12,13 +12,15 @@ namespace SantanderDeveloperCodingTest.Services
 
         public async Task<IEnumerable<StoryResponse>> GetBestStoriesAsync(int count)
         {
-            var selectedStoryIdList = (await _storyProvider.GetBestStoriesIdsAsync(count)).ToList(); //need to maintain the order
+            var fullStoryIdList = await _storyProvider.GetBestStoriesIdsAsync();
 
-            if (selectedStoryIdList is null)
+            if (fullStoryIdList is null)
             {
-                _logger.LogError("Resulted {SelectedStoryIdList} is null", nameof(selectedStoryIdList));
-                throw new InvalidOperationException($"Resulted {nameof(selectedStoryIdList)} is null");
+                _logger.LogError("Downloaded {FullStoryIdList} is null", nameof(fullStoryIdList));
+                throw new InvalidOperationException($"Downloaded {nameof(fullStoryIdList)} is null");
             }
+
+            var selectedStoryIdList = fullStoryIdList.Take(count).ToList(); // need to maintain the order
 
             var tasks = selectedStoryIdList.Select(async storyId => await _storyProvider.GetStoryAsync(storyId));
             var stories = await Task.WhenAll(tasks);

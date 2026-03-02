@@ -4,7 +4,7 @@ namespace SantanderDeveloperCodingTest.Providers
 {
     public interface IStoryProvider
     {
-        Task<IEnumerable<int>> GetBestStoriesIdsAsync(int count);
+        Task<IEnumerable<int>?> GetBestStoriesIdsAsync();
         Task<StoryResponse?> GetStoryAsync(int storyId);
     }
 }

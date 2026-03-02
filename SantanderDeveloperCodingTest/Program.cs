@@ -57,6 +57,7 @@ builder.Services.AddOutputCache(options =>
 
 builder.Services.AddTransient<IStoryService, StoryService>();
 builder.Services.AddTransient<IStoryProvider, StoryProvider>();
+builder.Services.Decorate<IStoryProvider, CachedStoryProvider>();
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.CreateMap<StoryDto, StoryResponse>()
