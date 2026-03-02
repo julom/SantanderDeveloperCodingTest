@@ -1,64 +1,29 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using SantanderDeveloperCodingTest.Dtos;
-using SantanderDeveloperCodingTest.HttpClients;
+﻿using SantanderDeveloperCodingTest.Dtos;
+using SantanderDeveloperCodingTest.Providers;
 
 namespace SantanderDeveloperCodingTest.Services
 {
     public class StoryService(
         ILogger<StoryService> logger,
-        IMemoryCache memoryCache,
-        IHackerNewsStoryHttpClient newsFetcher) : IStoryService
+        IStoryProvider storyProvider) : IStoryService
     {
-        public const string CachedStoryIdListKey = "full_list_of_story_ids";
-        private const int CacheStoryIdListExpirationInSeconds = 30;
-
-        public const string CachedStoryPrefixKey = "story";
-        private const int CachedStoryExpirationInSeconds = 1800;
-
         private readonly ILogger<StoryService> _logger = logger;
-        private readonly IMemoryCache _memoryCache = memoryCache;
-        private readonly IHackerNewsStoryHttpClient _newsFetcher = newsFetcher;
+        private readonly IStoryProvider _storyProvider = storyProvider;
 
         public async Task<IEnumerable<StoryResponse>> GetBestStoriesAsync(int count)
         {
-            // Search short-term cache for full list of best story ids
-            var fullStoryIdList = await _memoryCache.GetOrCreateAsync(CachedStoryIdListKey, async entry =>
-            {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(CacheStoryIdListExpirationInSeconds);
-                return await _newsFetcher.GetBestStoryIdListAsync();
-            });
+            var selectedStoryIdList = (await _storyProvider.GetBestStoriesIdsAsync(count)).ToList(); //need to maintain the order
 
-            if (fullStoryIdList is null)
+            if (selectedStoryIdList is null)
             {
-                _logger.LogError("Downloaded {FullStoryIdList} is null", nameof(fullStoryIdList));
-                throw new InvalidOperationException($"Downloaded {nameof(fullStoryIdList)} is null");
+                _logger.LogError("Resulted {SelectedStoryIdList} is null", nameof(selectedStoryIdList));
+                throw new InvalidOperationException($"Resulted {nameof(selectedStoryIdList)} is null");
             }
 
-            var narrowedStoryIdList = fullStoryIdList.Take(count);
+            var tasks = selectedStoryIdList.Select(async storyId => await _storyProvider.GetStoryAsync(storyId));
+            var stories = await Task.WhenAll(tasks);
 
-            await Parallel.ForEachAsync(narrowedStoryIdList, async (storyId, ct) =>
-            {
-                // Search long-term cache for story details
-                var storyCacheKey = $"{CachedStoryPrefixKey}:{storyId}";
-                await _memoryCache.GetOrCreateAsync(storyCacheKey, async entry =>
-                {
-                    entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(CachedStoryExpirationInSeconds);
-                    return await _newsFetcher.GetStoryAsync(storyId);
-                });
-            });
-
-            // Get ordered list of stories from cache which should have all required stories now
-            var stories = narrowedStoryIdList
-                .Select(storyId =>
-                {
-                    var storyCacheKey = $"{CachedStoryPrefixKey}:{storyId}";
-                    var story = _memoryCache.Get<StoryResponse?>(storyCacheKey);
-                    return story;
-                })
-                .OfType<StoryResponse>()
-                .ToList();
-
-            return stories;
+            return stories.OfType<StoryResponse>();
         }
     }
 }

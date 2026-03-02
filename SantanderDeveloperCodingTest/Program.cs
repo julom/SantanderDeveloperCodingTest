@@ -5,6 +5,7 @@ using Polly;
 using SantanderDeveloperCodingTest.Dtos;
 using SantanderDeveloperCodingTest.Endpoints;
 using SantanderDeveloperCodingTest.HttpClients;
+using SantanderDeveloperCodingTest.Providers;
 using SantanderDeveloperCodingTest.Services;
 using System.Threading.RateLimiting;
 
@@ -55,6 +56,7 @@ builder.Services.AddOutputCache(options =>
 });
 
 builder.Services.AddTransient<IStoryService, StoryService>();
+builder.Services.AddTransient<IStoryProvider, StoryProvider>();
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.CreateMap<StoryDto, StoryResponse>()
